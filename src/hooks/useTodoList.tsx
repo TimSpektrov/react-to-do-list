@@ -6,7 +6,17 @@ interface ITodoProviderProps {
 }
 
 const filters: TFilters[] = ['all', 'completed', 'incomplete']
-export const TodoContext = createContext<ITodoContext>();
+
+const initialTodoContext = {
+  filteredTodos: [],
+  filters: [],
+  selectedFilter: 'all', // или любое другое значение по умолчанию
+  addTodo: (todo) => {},
+  toggleTodo: (id) => {},
+  removeTodo: (id) => {},
+  filterTodo: (filter) => {},
+}
+export const TodoContext = createContext<ITodoContext>(initialTodoContext as ITodoContext);
 
 export const TodoProvider = ({ children }: ITodoProviderProps) => {
   const storageTodos = localStorage.todo

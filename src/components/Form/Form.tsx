@@ -3,7 +3,7 @@ import styles from './form.module.scss';
 import {useTodo} from "../../hooks/useTodoList.tsx";
 interface IFormProps {}
 
-export const Form: FC<IFormProps> = (props) => {
+export const Form: FC<IFormProps> = () => {
   const [value, setValue] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
   const [disabled, setDisabled] = useState<boolean>(true)
