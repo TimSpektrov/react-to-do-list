@@ -6,7 +6,7 @@ interface ITodoProviderProps {
 }
 
 const filters: TFilters[] = ['all', 'completed', 'incomplete']
-export const TodoContext = createContext<ITodoContext | undefined>(undefined);
+export const TodoContext = createContext<ITodoContext>();
 
 export const TodoProvider = ({ children }: ITodoProviderProps) => {
   const storageTodos = localStorage.todo
