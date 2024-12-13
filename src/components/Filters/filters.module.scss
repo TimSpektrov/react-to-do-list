@@ -1,0 +1,16 @@
+.list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  transition: height 0.2s;
+}
+
+.item {
+ border: 1px solid currentColor;
+ background-color: transparent;
+ transition: color 0.2s, background-color 0.2s;
+}
+
+.selected {
+ color: #6ea915;
+}

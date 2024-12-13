@@ -1,0 +1,31 @@
+.form {
+  position: relative;
+  padding: 1em 0;
+  width: 100%;
+  font-size: 20px;
+  display: flex;
+  align-items: stretch;
+  gap: 1em;
+}
+.input {
+  flex-grow: 1;
+  border: none;
+  border-bottom: 1px solid currentColor;
+  font-family: inherit;
+  font-size: 1em;
+  line-height: 1.2;
+  color: var(--primary-color);
+  outline: none;
+}
+.submit {
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+  background-color: transparent;
+}
+.error-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--danger-color);
+  font-size: 0.6em;
+}
