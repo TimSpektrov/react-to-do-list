@@ -11,10 +11,10 @@ const initialTodoContext = {
   filteredTodos: [],
   filters: [],
   selectedFilter: 'all', // или любое другое значение по умолчанию
-  addTodo: (todo) => {},
-  toggleTodo: (id) => {},
-  removeTodo: (id) => {},
-  filterTodo: (filter) => {},
+  addTodo: () => {},
+  toggleTodo: () => {},
+  removeTodo: () => {},
+  filterTodo: () => {},
 }
 export const TodoContext = createContext<ITodoContext>(initialTodoContext as ITodoContext);
 
