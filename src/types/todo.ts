@@ -8,6 +8,7 @@ export type TFilters = 'all' | 'completed' | 'incomplete'
 
 export interface ITodoContext {
   filteredTodos: ITodoItem[];
+  _todos: ITodoItem[];
   filters: TFilters[];
   selectedFilter: TFilters;
   addTodo: (todo: string) => void;

@@ -1,6 +1,6 @@
 import styles from './app.module.scss'
 import { Form } from "./components/Form";
-import { TodoProvider } from "./hooks/useTodoList.tsx";
+import { TodoProvider } from "./hooks/useTodo.tsx";
 import { List } from "./components/List";
 import { Filters } from "./components/Filters";
 

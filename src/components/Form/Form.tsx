@@ -1,9 +1,8 @@
 import {ChangeEvent, FC, FormEvent, useState} from 'react';
 import styles from './form.module.scss';
-import {useTodo} from "../../hooks/useTodoList.tsx";
-interface IFormProps {}
+import {useTodo} from "../../hooks/useTodo.tsx";
 
-export const Form: FC<IFormProps> = () => {
+export const Form: FC = () => {
   const [value, setValue] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
   const [disabled, setDisabled] = useState<boolean>(true)
@@ -30,8 +29,8 @@ export const Form: FC<IFormProps> = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <span className={styles['error-message']}>{error}</span>
-      <input className={styles.input} type='text' value={value} onChange={handleChange}/>
-      <button className={styles.submit} type='submit' disabled={disabled}>Добавить</button>
+      <input className={styles.input} type='text' data-testid={'InputForm'} value={value} onChange={handleChange}/>
+      <button className={styles.submit} type='submit' data-testid={'SubmitButton'} disabled={disabled}>Добавить</button>
     </form>
   );
 };

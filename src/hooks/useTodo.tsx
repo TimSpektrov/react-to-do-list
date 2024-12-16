@@ -7,10 +7,11 @@ interface ITodoProviderProps {
 
 const filters: TFilters[] = ['all', 'completed', 'incomplete']
 
-const initialTodoContext = {
+const initialTodoContext: ITodoContext = {
+  _todos: [],
   filteredTodos: [],
   filters: [],
-  selectedFilter: 'all', // или любое другое значение по умолчанию
+  selectedFilter: 'all',
   addTodo: () => {},
   toggleTodo: () => {},
   removeTodo: () => {},
@@ -20,43 +21,40 @@ export const TodoContext = createContext<ITodoContext>(initialTodoContext as ITo
 
 export const TodoProvider = ({ children }: ITodoProviderProps) => {
   const storageTodos = localStorage.todo
-  const [todos, setTodos] = useState<ITodoItem[]>(storageTodos ? JSON.parse(storageTodos) : [])
+  const [_todos, setTodos] = useState<ITodoItem[]>(storageTodos ? JSON.parse(storageTodos) : [])
   const storageFilter = localStorage.selectedTodo as TFilters
   const [selectedFilter, setSelectedFilter] = useState<TFilters>(filters.includes(storageFilter) ? storageFilter : 'all')
 
-  const filteredTodos = todos.filter(todo => {
+  const filteredTodos = _todos.filter(todo => {
     if (selectedFilter === 'completed') return todo.done;
     if (selectedFilter === 'incomplete') return !todo.done;
     return true;
   })
 
   const addTodo = (todo: string) => {
-    const newTodos = [...todos, { text: todo, done: false, id: new Date().getTime() }]
+    const newTodos = [..._todos, { text: todo, done: false, id: new Date().getTime() }]
     localStorage.todo = JSON.stringify(newTodos)
-    setTodos([...newTodos]);
+    setTodos(newTodos);
   };
-
   const toggleTodo = (id: number) => {
-    const index = todos.findIndex(item => item.id === id)
+    const index = _todos.findIndex(item => item.id === id)
       if (index !== -1) {
-        const newTodos = [...todos]
+        const newTodos = [..._todos]
         newTodos[index].done = !newTodos[index].done
         localStorage.todo = JSON.stringify(newTodos)
         setTodos([...newTodos])
       }
   }
-
   const removeTodo = (id: number) => {
-    const newTodos = todos.filter(item => item.id !== id)
+    const newTodos = _todos.filter(item => item.id !== id)
     localStorage.todo = JSON.stringify(newTodos)
     setTodos([...newTodos])
   }
-
   const filterTodo = (filter: TFilters) => {
     setSelectedFilter(filter)
   }
   return(
-    <TodoContext.Provider value={{filteredTodos, filters, selectedFilter,  addTodo, toggleTodo, removeTodo, filterTodo }} >
+    <TodoContext.Provider value={{filteredTodos, filters, selectedFilter,  addTodo, toggleTodo, removeTodo, filterTodo, _todos }} >
       {children}
     </TodoContext.Provider>
   )
