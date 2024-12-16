@@ -9,11 +9,9 @@ describe('useTodo', () => {
     { text: 'Задача 3', done: true, id: 3 },
     { text: 'Задача 4', done: false, id: 4 },
   ];
-
   beforeEach(() => {
     localStorage.clear();
   });
-
   it('добавление первого элемента', () => {
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
@@ -133,6 +131,4 @@ describe('useTodo', () => {
     })
     expect(result.current.filteredTodos).toEqual(initialTodos)
   });
-
-
 })

@@ -7,8 +7,10 @@ const renderComponent = () => {
 }
 
 describe('Form', () => {
-  afterEach(() => {
+  const addTodoMock = jest.fn();
+  beforeEach(() => {
     jest.clearAllMocks();
+    addTodoMock.mockClear();
   })
 
   it('Кнопка disabled при пустом значении', () => {
@@ -21,12 +23,13 @@ describe('Form', () => {
     fireEvent.change(getByTestId('InputForm'), {target: {value: '42'}})
     expect(getByTestId('SubmitButton')).not.toBeDisabled()
   });
-  // it('При нажатии кнопки добавить вызывается метод добавления дела', () => {
-  //   const handleSubmit = jest.fn();
-  //   const {getByTestId} = renderComponent();
-  //   fireEvent.change(getByTestId('InputForm'), {target: {value: 'Добавляем дело'}})
-  //   fireEvent.click(getByTestId('SubmitButton'))
-  //   expect(handleSubmit('Добавляем дело')).toHaveBeenCalledWith('Добавляем дело')
-  // });
-
+  it('При нажатии кнопки добавить вызывается метод добавления дела', () => {
+    const { getByTestId } = renderComponent();
+    const input = getByTestId('InputForm') as HTMLInputElement;
+    const button = getByTestId('SubmitButton') as HTMLButtonElement;
+    fireEvent.change(input, {target: {value: 'Добавляем дело'}})
+    expect(input.value).toBe('Добавляем дело')
+    fireEvent.click(button)
+    expect(input.value).toBe('');
+  });
 })
