@@ -7,7 +7,7 @@ interface ITodoProviderProps {
 
 const filters: TFilters[] = ['all', 'completed', 'incomplete']
 
-const initialTodoContext: ITodoContext = {
+export const initialTodoContext: ITodoContext = {
   _todos: [],
   filteredTodos: [],
   filters: [],
@@ -60,6 +60,6 @@ export const TodoProvider = ({ children }: ITodoProviderProps) => {
   )
 }
 
-export const useTodo = () => {
+export const useTodo = (): ITodoContext => {
   return useContext(TodoContext)
 }

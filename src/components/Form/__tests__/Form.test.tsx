@@ -44,8 +44,8 @@ describe('Form', () => {
     fireEvent.click(button)
 
     await waitFor(() => {
-      errorMessage = queryByTestId('ErrorMessage'); // Получаем сообщение об ошибке снова
-      expect(errorMessage).toBeInTheDocument(); // Проверяем, что сообщение об ошибке отображается
+      errorMessage = queryByTestId('ErrorMessage');
+      expect(errorMessage).toBeInTheDocument();
     })
     expect(input.value).toBe('');
     expect(button).toBeDisabled();

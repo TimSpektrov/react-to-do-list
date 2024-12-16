@@ -1,7 +1,10 @@
-import {act, renderHook} from "@testing-library/react";
+import {renderHook} from "@testing-library/react";
+import {act} from 'react'
 import {TodoProvider, useTodo} from "../useTodo.tsx";
 import {TFilters} from "../../types/todo.ts";
 
+const TODO_KEY = 'todo'
+const SELECTED_TODO_KEY = 'selectedTodo'
 describe('useTodo', () => {
   const initialTodos = [
     { text: 'Задача 1', done: false, id: 1 },
@@ -10,7 +13,8 @@ describe('useTodo', () => {
     { text: 'Задача 4', done: false, id: 4 },
   ];
   beforeEach(() => {
-    localStorage.clear();
+    localStorage.removeItem(TODO_KEY);
+    localStorage.removeItem(SELECTED_TODO_KEY);
   });
   it('добавление первого элемента', () => {
     const { result } = renderHook(() => useTodo(), {
@@ -22,7 +26,7 @@ describe('useTodo', () => {
     expect(result.current._todos).toEqual([{ text: 'дело', done: false, id: expect.any(Number) }])
   });
   it('добавление нового элемента', () => {
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -38,7 +42,7 @@ describe('useTodo', () => {
       { text: 'Задача 3', done: true, id: 3 },
       { text: 'Задача 4', done: false, id: 4 },
     ];
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -48,7 +52,7 @@ describe('useTodo', () => {
     expect(result.current._todos).toEqual(resultTodos)
   });
   it('проверка двойного тоггла элемента', () => {
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -64,7 +68,7 @@ describe('useTodo', () => {
       { text: 'Задача 3', done: true, id: 3 },
       { text: 'Задача 4', done: false, id: 4 },
     ];
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -74,7 +78,7 @@ describe('useTodo', () => {
     expect(result.current._todos).toEqual(resultTodos)
   });
   it('удаление несуществующего элемента', () => {
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -84,7 +88,7 @@ describe('useTodo', () => {
     expect(result.current._todos).toEqual(initialTodos)
   });
   it('фильтрация всех элемента', () => {
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -98,7 +102,7 @@ describe('useTodo', () => {
       { text: 'Задача 2', done: true, id: 2 },
       { text: 'Задача 3', done: true, id: 3 },
     ];
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -112,7 +116,7 @@ describe('useTodo', () => {
       { text: 'Задача 1', done: false, id: 1 },
       { text: 'Задача 4', done: false, id: 4 },
     ];
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });
@@ -122,7 +126,7 @@ describe('useTodo', () => {
     expect(result.current.filteredTodos).toEqual(resultTodos)
   });
   it('фильтрация по некорректному ключу должна возвращать все элементы', () => {
-    localStorage.setItem('todo', JSON.stringify(initialTodos));
+    localStorage.setItem(TODO_KEY, JSON.stringify(initialTodos));
     const { result } = renderHook(() => useTodo(), {
       wrapper: TodoProvider,
     });

@@ -18,7 +18,6 @@ export const Form: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault()
     const newValue = value.trim()
-    console.log(newValue)
     if (newValue) {
       addTodo(value)
       setValue('')
