@@ -18,18 +18,20 @@ export const Form: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault()
     const newValue = value.trim()
-    if (!newValue) {
-      setDisabled(true)
-      return setError('Обязательно для заполнения')
+    console.log(newValue)
+    if (newValue) {
+      addTodo(value)
+      setValue('')
+    } else {
+      setValue(newValue)
+      setError('Обязательно для заполнения')
     }
-    addTodo(value)
     setDisabled(true)
-    setValue('')
   }
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <span className={styles['error-message']}>{error}</span>
-      <input className={styles.input} type='text' data-testid={'InputForm'} value={value} onChange={handleChange}/>
+      {error && <span className={styles['error-message']} data-testid={'ErrorMessage'}>{error}</span>}
+      <input className={styles.input} type='text' data-testid={'InputForm'} value={value} onChange={handleChange} placeholder={'Новое дело'}/>
       <button className={styles.submit} type='submit' data-testid={'SubmitButton'} disabled={disabled}>Добавить</button>
     </form>
   );

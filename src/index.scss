@@ -25,6 +25,10 @@ img {
     max-width: 100%;
 }
 
+button:not(:disabled) {
+    cursor: pointer;
+}
+
 body {
     font-family: "Great Vibes", cursive;
     font-weight: 400;
